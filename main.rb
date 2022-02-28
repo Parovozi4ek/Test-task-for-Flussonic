@@ -6,9 +6,10 @@ def available_versions(paid_till, max_version, min_version, flussonic_last_versi
   paid_till = paid_till.slice(paid_till.size - 2, paid_till.size - 1).to_i + paid_till.split('.')[1].to_i / 100.0
   max_version = 100 if max_version.nil?
   min_version = 0 if min_version.nil?
+  max = max_version <= paid_till ? max_version : paid_till
   i = 0
-  while i < 5
-    if flussonic_last_version <= max_version && flussonic_last_version <= paid_till && flussonic_last_version >= min_version
+  while flussonic_last_version >= min_version && i < 5
+    if flussonic_last_version <= max
       array.unshift(flussonic_last_version)
     end
 
